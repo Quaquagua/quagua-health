@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, Sparkles, TrendingUp, Shield, Clock, Eye } from 'lucide-react';
+import { ArrowRight, Sparkles, TrendingUp, Shield, Clock, Eye, Star } from 'lucide-react';
 
 // WordPress API에서 글 가져오기
 async function getPosts() {
@@ -25,6 +25,53 @@ const categories = [
   { title: '울동/홈트', subtitle: '프로틴 · 기구 · 러닝화', icon: '💪', href: '/category/2', color: 'from-orange-500/20 to-amber-500/20' },
   { title: '다이어트', subtitle: '체중계 · 식품 · 쉐이크', icon: '🥗', href: '/category/3', color: 'from-rose-500/20 to-pink-500/20' },
   { title: '뷰티', subtitle: '콜라겐 · 선크림 · 스킨케어', icon: '✨', href: '/category/4', color: 'from-violet-500/20 to-purple-500/20' },
+];
+
+const products = [
+  { 
+    name: '닥터스베스트 오메가3', 
+    category: '영양제', 
+    price: '32,900원', 
+    originalPrice: '45,000원',
+    image: '🐟',
+    rating: 4.8,
+    reviews: 2847,
+    tag: 'BEST',
+    tagColor: 'bg-orange-500'
+  },
+  { 
+    name: '나이키 에어 줌 페가수스 39', 
+    category: '울동/홈트', 
+    price: '129,000원', 
+    originalPrice: '149,000원',
+    image: '👟',
+    rating: 4.9,
+    reviews: 1523,
+    tag: 'HOT',
+    tagColor: 'bg-red-500'
+  },
+  { 
+    name: '종근당건강 락토핏 생유산균', 
+    category: '영양제', 
+    price: '18,500원', 
+    originalPrice: '25,000원',
+    image: '🥛',
+    rating: 4.7,
+    reviews: 5621,
+    tag: '1위',
+    tagColor: 'bg-emerald-500'
+  },
+  { 
+    name: '비타할로 프리미엄 콜라겐', 
+    category: '뷰티', 
+    price: '24,900원', 
+    originalPrice: '35,000원',
+    image: '💎',
+    rating: 4.6,
+    reviews: 1892,
+    tag: 'NEW',
+    tagColor: 'bg-blue-500'
+  },
 ];
 
 export default async function Home() {
@@ -117,7 +164,42 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Posts - WordPress에서 가져온 글! (클릭 가능!) */}
+      {/* 추천 제품 섹션 */}
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <span className="inline-block px-4 py-1.5 bg-orange-100 text-orange-700 text-sm font-medium rounded-full mb-4">추천 제품</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">이번 주 베스트 제품</h2>
+            <p className="text-lg text-gray-600 mt-2">검증된 리뷰와 전문가 분석을 바탕으로 선정한 추천 제품들입니다.</p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {products.map((product) => (
+              <div key={product.name} className="group bg-white rounded-2xl border border-gray-200 hover:border-emerald-300 hover:shadow-xl transition-all cursor-pointer">
+                <div className="relative h-48 bg-gradient-to-br from-gray-50 to-gray-100 rounded-t-2xl flex items-center justify-center">
+                  <span className="text-6xl group-hover:scale-110 transition-transform">{product.image}</span>
+                  <span className={`absolute top-4 left-4 px-2 py-1 ${product.tagColor} text-white text-xs font-bold rounded`}>{product.tag}</span>
+                </div>
+                <div className="p-5">
+                  <span className="text-xs text-gray-500">{product.category}</span>
+                  <h3 className="font-bold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors">{product.name}</h3>
+                  <div className="flex items-center gap-1 mb-2">
+                    <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                    <span className="text-sm font-medium">{product.rating}</span>
+                    <span className="text-xs text-gray-400">({product.reviews.toLocaleString()})</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg font-bold text-orange-600">{product.price}</span>
+                    <span className="text-sm text-gray-400 line-through">{product.originalPrice}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Posts - WordPress에서 가져온 글! (클릭 가능 + 실제 이미지!) */}
       <section id="posts" className="py-20 lg:py-32">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
@@ -133,30 +215,43 @@ export default async function Home() {
 
           {posts.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {posts.map((post: any) => (
-                <Link key={post.id} href={`/post/${post.slug}`} className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all block">
-                  <div className="relative h-48 bg-gradient-to-br from-emerald-50 to-teal-50 flex items-center justify-center">
-                    <span className="text-6xl group-hover:scale-110 transition-transform">🌿</span>
-                  </div>
-                  <div className="p-6">
-                    <h3 
-                      className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors"
-                      dangerouslySetInnerHTML={{ __html: post.title.rendered }}
-                    />
-                    <div 
-                      className="text-sm text-gray-500 line-clamp-2 mb-4"
-                      dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
-                    />
-                    <div className="flex items-center justify-between text-xs text-gray-400 pt-4 border-t">
-                      <div className="flex items-center gap-3">
-                        <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" />5분</span>
-                        <span className="flex items-center gap-1"><Eye className="w-3.5 h-3.5" />1.2K</span>
-                      </div>
-                      <span>{new Date(post.date).toLocaleDateString('ko-KR')}</span>
+              {posts.map((post: any) => {
+                // WordPress Featured Image 가져오기
+                const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+                
+                return (
+                  <Link key={post.id} href={`/post/${post.slug}`} className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all block">
+                    <div className="relative h-48 bg-gradient-to-br from-emerald-50 to-teal-50 flex items-center justify-center overflow-hidden">
+                      {featuredImage ? (
+                        <img 
+                          src={featuredImage} 
+                          alt={post.title.rendered}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        />
+                      ) : (
+                        <span className="text-6xl group-hover:scale-110 transition-transform duration-300">🌿</span>
+                      )}
                     </div>
-                  </div>
-                </Link>
-              ))}
+                    <div className="p-6">
+                      <h3 
+                        className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors"
+                        dangerouslySetInnerHTML={{ __html: post.title.rendered }}
+                      />
+                      <div 
+                        className="text-sm text-gray-500 line-clamp-2 mb-4"
+                        dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
+                      />
+                      <div className="flex items-center justify-between text-xs text-gray-400 pt-4 border-t">
+                        <div className="flex items-center gap-3">
+                          <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" />5분</span>
+                          <span className="flex items-center gap-1"><Eye className="w-3.5 h-3.5" />1.2K</span>
+                        </div>
+                        <span>{new Date(post.date).toLocaleDateString('ko-KR')}</span>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
           ) : (
             <div className="text-center py-20 bg-white rounded-2xl">
@@ -166,81 +261,7 @@ export default async function Home() {
           )}
         </div>
       </section>
-{/* 추천 제품 섹션 */}
-<section className="py-16 bg-white">
-  <div className="max-w-6xl mx-auto px-4">
-    <div className="text-center mb-12">
-      <span className="inline-block px-4 py-1.5 bg-orange-100 text-orange-700 text-sm font-medium rounded-full mb-4">추천 제품</span>
-      <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">이번 주 베스트 제품</h2>
-      <p className="text-lg text-gray-600 mt-2">검증된 리뷰와 전문가 분석을 바탕으로 선정한 추천 제품들입니다.</p>
-    </div>
-    
-    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {[
-        { 
-          name: '닥터스베스트 오메가3', 
-          category: '영양제', 
-          price: '32,900원', 
-          originalPrice: '45,000원',
-          image: '🐟',
-          rating: 4.8,
-          reviews: 2847,
-          tag: 'BEST'
-        },
-        { 
-          name: '나이키 에어 줌 페가수스 39', 
-          category: '울동/홈트', 
-          price: '129,000원', 
-          originalPrice: '149,000원',
-          image: '👟',
-          rating: 4.9,
-          reviews: 1523,
-          tag: 'HOT'
-        },
-        { 
-          name: '종근당건강 락토핏 생유산균', 
-          category: '영양제', 
-          price: '18,500원', 
-          originalPrice: '25,000원',
-          image: '🥛',
-          rating: 4.7,
-          reviews: 5621,
-          tag: '1위'
-        },
-        { 
-          name: '비타할로 프리미엄 콜라겐', 
-          category: '뷰티', 
-          price: '24,900원', 
-          originalPrice: '35,000원',
-          image: '💎',
-          rating: 4.6,
-          reviews: 1892,
-          tag: 'NEW'
-        },
-      ].map((product) => (
-        <div key={product.name} className="group bg-white rounded-2xl border border-gray-200 hover:border-emerald-300 hover:shadow-xl transition-all cursor-pointer">
-          <div className="relative h-48 bg-gradient-to-br from-gray-50 to-gray-100 rounded-t-2xl flex items-center justify-center">
-            <span className="text-6xl group-hover:scale-110 transition-transform">{product.image}</span>
-            <span className="absolute top-4 left-4 px-2 py-1 bg-orange-500 text-white text-xs font-bold rounded">{product.tag}</span>
-          </div>
-          <div className="p-5">
-            <span className="text-xs text-gray-500">{product.category}</span>
-            <h3 className="font-bold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors">{product.name}</h3>
-            <div className="flex items-center gap-1 mb-2">
-              <span className="text-yellow-500">★</span>
-              <span className="text-sm font-medium">{product.rating}</span>
-              <span className="text-xs text-gray-400">({product.reviews.toLocaleString()})</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-lg font-bold text-orange-600">{product.price}</span>
-              <span className="text-sm text-gray-400 line-through">{product.originalPrice}</span>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
+
       {/* Newsletter */}
       <section className="py-20 lg:py-32 bg-gradient-to-r from-emerald-500 to-teal-600 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -252,8 +273,8 @@ export default async function Home() {
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">건강한 소식을 매주 받아보세요</h2>
             <p className="text-white/80 text-lg mb-8">5만+ 구독자와 함께하는 건강 정보. 검증된 리뷰와 전문가 팁을 놓치지 마세요.</p>
             <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input type="email" placeholder="your@email.com" className="flex-1 h-12 px-4 rounded-lg text-gray-900" />
-              <button type="submit" className="h-12 px-6 bg-gray-900 text-white rounded-lg font-medium">구독하기</button>
+              <input type="email" placeholder="your@email.com" className="flex-1 h-12 px-4 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white/50" />
+              <button type="submit" className="h-12 px-6 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition-colors">구독하기</button>
             </form>
           </div>
         </div>
@@ -273,20 +294,37 @@ export default async function Home() {
                   <span className="text-xs text-gray-500 block">Health Blog</span>
                 </div>
               </Link>
-              <p className="text-sm text-gray-500">건강한 삶을 위한 전문적인 가이드.</p>
+              <p className="text-sm text-gray-500">건강한 삶을 위한 전문적인 가이드. 영양제부터 울동, 다이어트, 뷰티까지 검증된 정보를 제공합니다.</p>
             </div>
             <div>
               <h4 className="text-white font-semibold mb-4">카테고리</h4>
               <ul className="space-y-2">
-                <li><Link href="/category/1" className="text-sm hover:text-white">영양제</Link></li>
-                <li><Link href="/category/2" className="text-sm hover:text-white">울동/홈트</Link></li>
-                <li><Link href="/category/3" className="text-sm hover:text-white">다이어트</Link></li>
-                <li><Link href="/category/4" className="text-sm hover:text-white">뷰티</Link></li>
+                <li><Link href="/category/1" className="text-sm hover:text-white transition-colors">영양제</Link></li>
+                <li><Link href="/category/2" className="text-sm hover:text-white transition-colors">울동/홈트</Link></li>
+                <li><Link href="/category/3" className="text-sm hover:text-white transition-colors">다이어트</Link></li>
+                <li><Link href="/category/4" className="text-sm hover:text-white transition-colors">뷰티</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">회사</h4>
+              <ul className="space-y-2">
+                <li><Link href="#" className="text-sm hover:text-white transition-colors">소개</Link></li>
+                <li><Link href="#" className="text-sm hover:text-white transition-colors">문의하기</Link></li>
+                <li><Link href="#" className="text-sm hover:text-white transition-colors">광고/제휴</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold mb-4">지원</h4>
+              <ul className="space-y-2">
+                <li><Link href="#" className="text-sm hover:text-white transition-colors">자주 묻는 질문</Link></li>
+                <li><Link href="#" className="text-sm hover:text-white transition-colors">개인정보처리방침</Link></li>
+                <li><Link href="#" className="text-sm hover:text-white transition-colors">이용약관</Link></li>
               </ul>
             </div>
           </div>
-          <div className="mt-16 pt-8 border-t border-gray-800 text-center">
+          <div className="mt-16 pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-sm text-gray-600">© 2026 Quagua Health Blog. All rights reserved.</p>
+            <p className="text-sm text-gray-600">건강한 삶을 위한 전문적인 가이드</p>
           </div>
         </div>
       </footer>
