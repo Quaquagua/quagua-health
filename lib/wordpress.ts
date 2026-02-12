@@ -1,4 +1,4 @@
-const WP_API_URL = process.env.WORDPRESS_API_URL || 'https://quagua.com/wp-json/wp/v2';
+const WP_API_URL = 'https://mediumturquoise-spider-328427.hostingersite.com/wp-json/wp/v2';
 
 export interface WPPost {
   id: number;
