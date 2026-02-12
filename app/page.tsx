@@ -28,7 +28,7 @@ const categories = [
 ];
 
 export default async function Home() {
-  const posts = await getPosts();  // ← WordPress에서 글 가져오기!
+  const posts = await getPosts();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -117,7 +117,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Posts - WordPress에서 가져온 글! */}
+      {/* Posts - WordPress에서 가져온 글! (클릭 가능!) */}
       <section id="posts" className="py-20 lg:py-32">
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
@@ -134,7 +134,7 @@ export default async function Home() {
           {posts.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {posts.map((post: any) => (
-                <article key={post.id} className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all">
+                <Link key={post.id} href={`/post/${post.slug}`} className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all block">
                   <div className="relative h-48 bg-gradient-to-br from-emerald-50 to-teal-50 flex items-center justify-center">
                     <span className="text-6xl group-hover:scale-110 transition-transform">🌿</span>
                   </div>
@@ -155,7 +155,7 @@ export default async function Home() {
                       <span>{new Date(post.date).toLocaleDateString('ko-KR')}</span>
                     </div>
                   </div>
-                </article>
+                </Link>
               ))}
             </div>
           ) : (
