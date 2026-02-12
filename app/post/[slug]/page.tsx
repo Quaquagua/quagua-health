@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { ArrowLeft, Calendar, Clock, User } from 'lucide-react';
+import AdSense from '@/components/AdSense';
+import CoupangBanner from '@/components/CoupangBanner';
 
 // WordPress에서 글 가져오기
 async function getPost(slug: string) {
@@ -37,8 +39,13 @@ export default async function PostPage({ params }: { params: { slug: string } })
         </div>
       </header>
 
+      {/* 상단 광고 */}
+      <div className="max-w-4xl mx-auto px-4 py-4">
+        <AdSense slot="1234567890" style={{ display: 'block', height: '90px' }} />
+      </div>
+
       {/* Content */}
-      <article className="max-w-4xl mx-auto px-4 py-12">
+      <article className="max-w-4xl mx-auto px-4 py-8">
         <Link href="/posts" className="inline-flex items-center gap-2 text-gray-500 hover:text-emerald-600 mb-6">
           <ArrowLeft className="w-4 h-4" />
           목록으로 돌아가기
@@ -55,11 +62,35 @@ export default async function PostPage({ params }: { params: { slug: string } })
           <span className="flex items-center gap-1"><User className="w-4 h-4" />Quagua Health</span>
         </div>
 
+        {/* 본문 위 쿠팡 배너 */}
+        <CoupangBanner 
+          link="https://link.coupang.com/a/YOUR_LINK"
+          imageUrl="https://image10.coupangcdn.com/image/affiliate/banner/YOUR_BANNER.jpg"
+        />
+
+        {/* 본문 */}
         <div 
-          className="prose prose-lg max-w-none bg-white p-8 rounded-2xl shadow-sm"
+          className="prose prose-lg max-w-none bg-white p-8 rounded-2xl shadow-sm mb-8"
           dangerouslySetInnerHTML={{ __html: post.content.rendered }}
         />
+
+        {/* 본문 아래 쿠팡 배너 */}
+        <CoupangBanner 
+          link="https://link.coupang.com/a/YOUR_LINK_2"
+          imageUrl="https://image10.coupangcdn.com/image/affiliate/banner/YOUR_BANNER_2.jpg"
+        />
+
+        {/* 하단 광고 */}
+        <AdSense slot="0987654321" style={{ display: 'block', height: '250px' }} />
       </article>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-gray-400 py-12">
+        <div className="max-w-6xl mx-auto px-4 text-center">
+          <p className="text-white font-bold text-xl mb-2">Quagua Health</p>
+          <p className="text-sm">© 2026 Quagua Health Blog. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   );
 }
