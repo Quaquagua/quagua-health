@@ -166,7 +166,81 @@ export default async function Home() {
           )}
         </div>
       </section>
-
+{/* 추천 제품 섹션 */}
+<section className="py-16 bg-white">
+  <div className="max-w-6xl mx-auto px-4">
+    <div className="text-center mb-12">
+      <span className="inline-block px-4 py-1.5 bg-orange-100 text-orange-700 text-sm font-medium rounded-full mb-4">추천 제품</span>
+      <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">이번 주 베스트 제품</h2>
+      <p className="text-lg text-gray-600 mt-2">검증된 리뷰와 전문가 분석을 바탕으로 선정한 추천 제품들입니다.</p>
+    </div>
+    
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {[
+        { 
+          name: '닥터스베스트 오메가3', 
+          category: '영양제', 
+          price: '32,900원', 
+          originalPrice: '45,000원',
+          image: '🐟',
+          rating: 4.8,
+          reviews: 2847,
+          tag: 'BEST'
+        },
+        { 
+          name: '나이키 에어 줌 페가수스 39', 
+          category: '울동/홈트', 
+          price: '129,000원', 
+          originalPrice: '149,000원',
+          image: '👟',
+          rating: 4.9,
+          reviews: 1523,
+          tag: 'HOT'
+        },
+        { 
+          name: '종근당건강 락토핏 생유산균', 
+          category: '영양제', 
+          price: '18,500원', 
+          originalPrice: '25,000원',
+          image: '🥛',
+          rating: 4.7,
+          reviews: 5621,
+          tag: '1위'
+        },
+        { 
+          name: '비타할로 프리미엄 콜라겐', 
+          category: '뷰티', 
+          price: '24,900원', 
+          originalPrice: '35,000원',
+          image: '💎',
+          rating: 4.6,
+          reviews: 1892,
+          tag: 'NEW'
+        },
+      ].map((product) => (
+        <div key={product.name} className="group bg-white rounded-2xl border border-gray-200 hover:border-emerald-300 hover:shadow-xl transition-all cursor-pointer">
+          <div className="relative h-48 bg-gradient-to-br from-gray-50 to-gray-100 rounded-t-2xl flex items-center justify-center">
+            <span className="text-6xl group-hover:scale-110 transition-transform">{product.image}</span>
+            <span className="absolute top-4 left-4 px-2 py-1 bg-orange-500 text-white text-xs font-bold rounded">{product.tag}</span>
+          </div>
+          <div className="p-5">
+            <span className="text-xs text-gray-500">{product.category}</span>
+            <h3 className="font-bold text-gray-900 mb-2 group-hover:text-emerald-600 transition-colors">{product.name}</h3>
+            <div className="flex items-center gap-1 mb-2">
+              <span className="text-yellow-500">★</span>
+              <span className="text-sm font-medium">{product.rating}</span>
+              <span className="text-xs text-gray-400">({product.reviews.toLocaleString()})</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-lg font-bold text-orange-600">{product.price}</span>
+              <span className="text-sm text-gray-400 line-through">{product.originalPrice}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
       {/* Newsletter */}
       <section className="py-20 lg:py-32 bg-gradient-to-r from-emerald-500 to-teal-600 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
