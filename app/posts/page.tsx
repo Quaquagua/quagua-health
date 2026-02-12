@@ -1,13 +1,22 @@
 import Link from 'next/link';
 import { ArrowLeft, Clock, Eye } from 'lucide-react';
 
-const posts = [
-  { id: 1, title: '2026 오메가3 추천 TOP 10, 가성비부터 프리미엄까지', category: '영양제', categoryColor: 'bg-emerald-100 text-emerald-700', image: '🐟', readTime: '8분', views: '12.5K', date: '2026.02.10' },
-  { id: 2, title: '러닝화 고르는 법 완벽 가이드 - 2026년 최신판', category: '울동/홈트', categoryColor: 'bg-orange-100 text-orange-700', image: '👟', readTime: '12분', views: '8.3K', date: '2026.02.08' },
-  { id: 3, title: '유산균 효과 제대로 보는 법, 복용 시간과 주의사항', category: '영양제', categoryColor: 'bg-emerald-100 text-emerald-700', image: '🥛', readTime: '6분', views: '15.2K', date: '2026.02.05' },
-];
+// WordPress API에서 글 가져오기
+async function getPosts() {
+  try {
+    const res = await fetch('https://mediumturquoise-spider-328427.hostingersite.com/wp-json/wp/v2/posts?_embed&per_page=12', {
+      next: { revalidate: 60 }
+    });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
+}
 
-export default function PostsPage() {
+export default async function PostsPage() {
+  const posts = await getPosts();
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -35,29 +44,42 @@ export default function PostsPage() {
         </div>
       </section>
 
-      {/* Posts Grid */}
+      {/* Posts Grid - WordPress에서 가져옴! */}
       <section className="py-16">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.map((post) => (
-              <article key={post.id} className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all">
-                <div className="relative h-48 bg-gradient-to-br from-emerald-50 to-teal-50 flex items-center justify-center">
-                  <span className="text-6xl group-hover:scale-110 transition-transform">{post.image}</span>
-                  <span className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium ${post.categoryColor}`}>{post.category}</span>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors">{post.title}</h3>
-                  <div className="flex items-center justify-between text-xs text-gray-400 pt-4 border-t">
-                    <div className="flex items-center gap-3">
-                      <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{post.readTime}</span>
-                      <span className="flex items-center gap-1"><Eye className="w-3.5 h-3.5" />{post.views}</span>
-                    </div>
-                    <span>{post.date}</span>
+          {posts.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {posts.map((post: any) => (
+                <Link key={post.id} href={`/post/${post.slug}`} className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all block">
+                  <div className="relative h-48 bg-gradient-to-br from-emerald-50 to-teal-50 flex items-center justify-center">
+                    <span className="text-6xl group-hover:scale-110 transition-transform">🌿</span>
                   </div>
-                </div>
-              </article>
-            ))}
-          </div>
+                  <div className="p-6">
+                    <h3 
+                      className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors"
+                      dangerouslySetInnerHTML={{ __html: post.title.rendered }}
+                    />
+                    <div 
+                      className="text-sm text-gray-500 line-clamp-2 mb-4"
+                      dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
+                    />
+                    <div className="flex items-center justify-between text-xs text-gray-400 pt-4 border-t">
+                      <div className="flex items-center gap-3">
+                        <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" />5분</span>
+                        <span className="flex items-center gap-1"><Eye className="w-3.5 h-3.5" />1.2K</span>
+                      </div>
+                      <span>{new Date(post.date).toLocaleDateString('ko-KR')}</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-20 bg-white rounded-2xl">
+              <p className="text-gray-500 text-lg">아직 포스팅된 글이 없습니다.</p>
+              <p className="text-gray-400 mt-2">n8n 자동화를 설정하면 여기에 글이 표시됩니다.</p>
+            </div>
+          )}
         </div>
       </section>
 
