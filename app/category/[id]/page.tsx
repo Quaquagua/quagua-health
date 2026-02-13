@@ -1,3 +1,4 @@
+import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Clock, Eye } from 'lucide-react';
 
@@ -13,8 +14,8 @@ const posts = [
   { id: 2, title: '유산균 효과 제대로 보는 법, 복용 시간과 주의사항', category: '영양제', categoryColor: 'bg-emerald-100 text-emerald-700', image: '🥛', readTime: '6분', views: '15.2K', date: '2026.02.05' },
 ];
 
-// Static Export를 위한 정적 경로 생성
-export async function generateStaticParams() {
+// 정적 경로 생성 (Static Export 필수)
+export function generateStaticParams() {
   return [
     { id: '18' },
     { id: '19' },
@@ -23,10 +24,15 @@ export async function generateStaticParams() {
   ];
 }
 
-// 목록 외 ID는 404 처리
+// 목록 외 ID는 404
 export const dynamicParams = false;
 
-export default async function CategoryPage({ params }: { params: Promise<{ id: string }> }) {
+// Next.js 15 타입 정의
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
+
+export default async function CategoryPage({ params }: PageProps) {
   const { id } = await params;
   const category = categories[id] || { name: '카테고리', description: '' };
 
@@ -66,4 +72,30 @@ export default async function CategoryPage({ params }: { params: Promise<{ id: s
                 <div className="relative h-48 bg-gradient-to-br from-emerald-50 to-teal-50 flex items-center justify-center">
                   <span className="text-6xl group-hover:scale-110 transition-transform">{post.image}</span>
                   <span className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium ${post.categoryColor}`}>{post.category}</span>
-                </
+                </div>
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors">{post.title}</h3>
+                  <div className="flex items-center justify-between text-xs text-gray-400 pt-4 border-t">
+                    <div className="flex items-center gap-3">
+                      <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{post.readTime}</span>
+                      <span className="flex items-center gap-1"><Eye className="w-3.5 h-3.5" />{post.views}</span>
+                    </div>
+                    <span>{post.date}</span>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-gray-400 py-12">
+        <div className="max-w-6xl mx-auto px-4 text-center">
+          <p className="text-white font-bold text-xl mb-2">Quagua Health</p>
+          <p className="text-sm">© 2026 Quagua Health Blog. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
