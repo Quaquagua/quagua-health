@@ -1,3 +1,4 @@
+import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Calendar, Clock, User } from 'lucide-react';
 import AdSense from '@/components/AdSense';
@@ -16,8 +17,34 @@ async function getPost(slug: string) {
   }
 }
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
-  const post = await getPost(params.slug);
+// Static Export를 위한 정적 경로 생성 (필수)
+export async function generateStaticParams() {
+  try {
+    // WordPress에서 최근 100개 포스트의 slug 가져오기
+    const res = await fetch('https://mediumturquoise-spider-328427.hostingersite.com/wp-json/wp/v2/posts?per_page=100');
+    const posts = await res.json();
+    
+    return posts.map((post: any) => ({
+      slug: post.slug,
+    }));
+  } catch (error) {
+    // API 실패 시 빈 배열 반환 (빌드는 계속 진행)
+    console.error('Failed to fetch post slugs:', error);
+    return [];
+  }
+}
+
+// 목록 외 slug는 404 처리
+export const dynamicParams = false;
+
+// Next.js 15 타입 정의
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export default async function PostPage({ params }: PageProps) {
+  const { slug } = await params;
+  const post = await getPost(slug);
 
   if (!post) {
     return (
