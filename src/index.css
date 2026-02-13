@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 30 30% 97%;
+    --foreground: 220 20% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 12%;
+    --primary: 15 85% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 30 25% 94%;
+    --secondary-foreground: 15 60% 35%;
+    --muted: 30 15% 92%;
+    --muted-foreground: 220 10% 42%;
+    --accent: 35 95% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 30 15% 88%;
+    --input: 30 15% 88%;
+    --ring: 15 85% 55%;
+    --radius: 0.75rem;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 220 20% 12%;
+    --sidebar-primary: 15 85% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 30 25% 94%;
+    --sidebar-accent-foreground: 15 60% 35%;
+    --sidebar-border: 30 15% 88%;
+    --sidebar-ring: 15 85% 55%;
+    
+    /* B-Style Custom Colors */
+    --coral: 15 85% 55%;
+    --coral-dark: 15 75% 45%;
+    --coral-light: 15 90% 65%;
+    --warm-gray: 30 10% 45%;
+    --cream: 35 40% 96%;
+    --charcoal: 220 20% 12%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* B-Style Gradients */
+  .gradient-coral {
+    background: linear-gradient(135deg, hsl(15 85% 55%) 0%, hsl(25 90% 50%) 100%);
+  }
+  
+  .gradient-coral-dark {
+    background: linear-gradient(135deg, hsl(15 75% 45%) 0%, hsl(15 85% 55%) 100%);
+  }
+  
+  .gradient-warm {
+    background: linear-gradient(180deg, hsl(35 40% 96%) 0%, hsl(30 30% 97%) 100%);
+  }
+  
+  .gradient-hero {
+    background: linear-gradient(135deg, hsl(30 30% 97%) 0%, hsl(35 50% 94%) 50%, hsl(25 60% 92%) 100%);
+  }
+  
+  /* Text Gradient */
+  .text-gradient-coral {
+    background: linear-gradient(135deg, hsl(15 85% 55%) 0%, hsl(25 90% 50%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Shadow Effects */
+  .shadow-coral {
+    box-shadow: 0 10px 40px -10px hsl(15 85% 55% / 0.3);
+  }
+  
+  .shadow-coral-lg {
+    box-shadow: 0 20px 60px -15px hsl(15 85% 55% / 0.35);
+  }
+  
+  /* Hover Effects */
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px -12px hsl(15 85% 55% / 0.25);
+  }
+  
+  /* Animation */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  @keyframes pulse-coral {
+    0%, 100% { box-shadow: 0 0 0 0 hsl(15 85% 55% / 0.4); }
+    50% { box-shadow: 0 0 0 15px hsl(15 85% 55% / 0); }
+  }
+  
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-pulse-coral {
+    animation: pulse-coral 2s ease-in-out infinite;
+  }
+  
+  .animate-shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+  
+  /* Image Treatment */
+  .img-warm {
+    filter: saturate(1.05) contrast(1.02);
+  }
+  
+  /* Noise Texture */
+  .noise-bg {
+    position: relative;
+  }
+  
+  .noise-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(30 30% 97%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(15 85% 55% / 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(15 85% 55% / 0.5);
+}
+
+/* Selection */
+::selection {
+  background: hsl(15 85% 55% / 0.2);
+  color: hsl(220 20% 12%);
+}
