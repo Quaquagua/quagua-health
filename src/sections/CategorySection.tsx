@@ -1,4 +1,4 @@
-import { ArrowRight, Pill, Dumbbell, Apple, Sparkles } from 'lucide-react';
+import { ArrowRight, ExternalLink, Pill, Dumbbell, Apple, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useEffect, useRef, useState } from 'react';
 
@@ -20,6 +20,7 @@ const categories = [
       { name: '종합비타민', desc: '영양 균형' },
     ],
     articles: 128,
+    coupangLink: 'https://link.coupang.com/a/bFND7J', // 영양제 카테고리 쿠팡 링크
   },
   {
     id: 'fitness',
@@ -38,6 +39,7 @@ const categories = [
       { name: '보충제', desc: '운동 효율 UP' },
     ],
     articles: 95,
+    coupangLink: 'https://link.coupang.com/a/bFND7K', // 운동/홈트 카테고리 쿠팡 링크
   },
   {
     id: 'diet',
@@ -56,6 +58,7 @@ const categories = [
       { name: '보조제', desc: '체지방 관리' },
     ],
     articles: 87,
+    coupangLink: 'https://link.coupang.com/a/bFND7O', // 다이어트 카테고리 쿠팡 링크
   },
   {
     id: 'beauty',
@@ -71,9 +74,10 @@ const categories = [
       { name: '콜라겐', desc: '피부 탄력' },
       { name: '선크림', desc: 'UV 차단' },
       { name: '스킨케어', desc: '피부 관리' },
-      { name: '이너뷰티', desc: '납은 뷰티' },
+      { name: '이너뷰티', desc: '내면 뷰티' },
     ],
     articles: 76,
+    coupangLink: 'https://link.coupang.com/a/bFND7P', // 뷰티 카테고리 쿠팡 링크
   },
 ];
 
@@ -161,6 +165,7 @@ export default function CategorySection() {
                     <div
                       key={item.name}
                       className={`flex items-center gap-4 p-5 rounded-2xl bg-gradient-to-r ${category.bgGradient} hover:shadow-lg transition-all duration-300 cursor-pointer hover:-translate-y-0.5 group`}
+                      onClick={() => window.open(category.coupangLink, '_blank')}
                     >
                       <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${category.gradient} flex items-center justify-center text-white font-bold text-sm group-hover:scale-110 transition-transform`}>
                         {item.name.charAt(0)}
@@ -177,13 +182,14 @@ export default function CategorySection() {
                   ))}
                 </div>
 
-                {/* CTA */}
+                {/* CTA - 수익화 최적화: 리뷰 보기 → BEST 제품 보기 */}
                 <div className="flex items-center gap-6">
                   <Button
                     className={`bg-gradient-to-r ${category.gradient} text-white hover:opacity-90 rounded-xl h-12 px-6 font-semibold shadow-lg hover:shadow-xl transition-all`}
+                    onClick={() => window.open(category.coupangLink, '_blank')}
                   >
-                    {category.title} 리뷰 보기
-                    <ArrowRight className="w-4 h-4 ml-2" />
+                    {category.title} BEST 제품 보기
+                    <ExternalLink className="w-4 h-4 ml-2" />
                   </Button>
                   <span className="text-sm font-medium text-[hsl(220,10%,42%)]">
                     <span className="text-[hsl(15,85%,55%)] font-bold">{category.articles}</span>개의 리뷰
@@ -196,7 +202,10 @@ export default function CategorySection() {
                 <div
                   className={`absolute inset-0 bg-gradient-to-br ${category.gradient} opacity-20 rounded-3xl blur-3xl -z-10`}
                 />
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl group cursor-pointer">
+                <div 
+                  className="relative rounded-3xl overflow-hidden shadow-2xl group cursor-pointer"
+                  onClick={() => window.open(category.coupangLink, '_blank')}
+                >
                   {/* Main Image */}
                   <img
                     src={category.image}
@@ -219,7 +228,7 @@ export default function CategorySection() {
                         </h4>
                       </div>
                       <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${category.gradient} flex items-center justify-center`}>
-                        <ArrowRight className="w-5 h-5 text-white" />
+                        <ExternalLink className="w-5 h-5 text-white" />
                       </div>
                     </div>
                   </div>
