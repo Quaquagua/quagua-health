@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles, TrendingUp, Shield, Play } from 'lucide-react';
+import { ArrowRight, Sparkles, TrendingUp, Shield, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState, useRef } from 'react';
 
@@ -132,26 +132,31 @@ export default function Hero() {
                 </p>
               </div>
 
-              {/* CTA Buttons */}
+              {/* CTA Buttons - 수익화 최적화 버전 */}
               <div
                 className={`flex flex-col sm:flex-row gap-4 justify-center lg:justify-start transition-all duration-700 delay-200 ${
                   isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                 }`}
               >
+                {/* 메인 CTA: 핫딜 제품으로 스크롤 */}
                 <Button
                   size="lg"
                   className="gradient-coral hover:opacity-90 text-white px-8 h-14 text-base font-semibold rounded-xl shadow-coral hover:shadow-coral-lg transition-all hover:-translate-y-0.5"
+                  onClick={() => document.getElementById('hot-deals')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  콘텐츠 둘러보기
+                  🔥 오늘의 핫딜 제품 보기
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
+                
+                {/* 서브 CTA: 쿠팡 파트너스 바로가기 */}
                 <Button
                   size="lg"
                   variant="outline"
                   className="border-2 border-[hsl(15,85%,55%)]/20 text-[hsl(15,85%,55%)] hover:bg-[hsl(15,85%,55%)]/5 h-14 text-base font-semibold rounded-xl transition-all"
+                  onClick={() => window.open('https://link.coupang.com/a/bFND7J', '_blank')}
                 >
-                  <Play className="w-5 h-5 mr-2" />
-                  구독하기
+                  <ExternalLink className="w-5 h-5 mr-2" />
+                  쿠팡 파트너스 바로가기
                 </Button>
               </div>
 
