@@ -104,12 +104,12 @@ export default function ProductRecommendations() {
   };
 
   return (
-    <section ref={sectionRef} className="py-24 lg:py-32 bg-white">
+    <section ref={sectionRef} id="hot-deals" className="py-24 lg:py-32 bg-white">
       <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12">
         {/* Section Header */}
         <div className="text-center mb-16">
           <span className="inline-block px-5 py-2 bg-gradient-to-r from-[hsl(15,85%,55%)] to-[hsl(25,90%,50%)] text-white text-sm font-bold rounded-full mb-6 shadow-coral">
-            추천 제품
+            🔥 오늘의 핫딜
           </span>
           <h2 className="text-4xl sm:text-5xl font-black text-[hsl(220,20%,12%)] mb-6 tracking-tight">
             이번 주 베스트 제품
