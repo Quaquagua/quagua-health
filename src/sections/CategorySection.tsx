@@ -129,7 +129,7 @@ export default function CategorySection() {
               key={category.id}
               id={category.id}
               data-index={index}
-              className={`pt-24 -mt-24 grid lg:grid-cols-2 gap-10 lg:gap-20 items-center transition-all duration-700 ${
+              className={`pt-11 -mt-11 grid lg:grid-cols-2 gap-10 lg:gap-20 items-center transition-all duration-700 ${
                 visibleItems.has(index)
                   ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-12'
