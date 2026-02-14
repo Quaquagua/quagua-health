@@ -209,9 +209,10 @@ export default function FeaturedPosts() {
           <Button 
             variant="outline" 
             className="w-fit rounded-xl border-2 border-[hsl(15,85%,55%)]/20 text-[hsl(15,85%,55%)] hover:bg-[hsl(15,85%,55%)]/5 font-semibold"
+            onClick={() => window.open('https://www.coupang.com', '_blank')}
           >
-            전체 보기
-            <ArrowRight className="w-4 h-4 ml-2" />
+            쿠팡 베스트 제품 보기
+            <ExternalLink className="w-4 h-4 ml-2" />
           </Button>
         </div>
 
@@ -302,8 +303,10 @@ export default function FeaturedPosts() {
             size="lg" 
             variant="outline" 
             className="px-12 rounded-xl border-2 border-[hsl(15,85%,55%)]/20 text-[hsl(15,85%,55%)] hover:bg-[hsl(15,85%,55%)]/5 font-semibold h-12"
+            onClick={() => window.open('https://link.coupang.com/a/bFND7J', '_blank')}
           >
-            더 많은 리뷰 보기
+            쿠팡에서 더 많은 제품 보기
+            <ExternalLink className="w-4 h-4 ml-2" />
           </Button>
         </div>
       </div>
