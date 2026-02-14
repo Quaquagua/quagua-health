@@ -1,4 +1,4 @@
-import { Clock, Eye, ArrowRight, TrendingUp, ExternalLink } from 'lucide-react';
+import { Clock, Eye, TrendingUp, ExternalLink } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useEffect, useState, useRef } from 'react';
