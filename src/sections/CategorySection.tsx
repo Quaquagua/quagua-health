@@ -20,7 +20,7 @@ const categories = [
       { name: '종합비타민', desc: '영양 균형' },
     ],
     articles: 128,
-    coupangLink: 'https://link.coupang.com/a/bFND7J', // 영양제 카테고리 쿠팡 링크
+    coupangLink: 'https://link.coupang.com/a/bFND7J',
   },
   {
     id: 'fitness',
@@ -39,7 +39,7 @@ const categories = [
       { name: '보충제', desc: '운동 효율 UP' },
     ],
     articles: 95,
-    coupangLink: 'https://link.coupang.com/a/bFND7K', // 운동/홈트 카테고리 쿠팡 링크
+    coupangLink: 'https://link.coupang.com/a/bFND7K',
   },
   {
     id: 'diet',
@@ -58,7 +58,7 @@ const categories = [
       { name: '보조제', desc: '체지방 관리' },
     ],
     articles: 87,
-    coupangLink: 'https://link.coupang.com/a/bFND7O', // 다이어트 카테고리 쿠팡 링크
+    coupangLink: 'https://link.coupang.com/a/bFND7O',
   },
   {
     id: 'beauty',
@@ -77,7 +77,7 @@ const categories = [
       { name: '이너뷰티', desc: '내면 뷰티' },
     ],
     articles: 76,
-    coupangLink: 'https://link.coupang.com/a/bFND7P', // 뷰티 카테고리 쿠팡 링크
+    coupangLink: 'https://link.coupang.com/a/bFND7P',
   },
 ];
 
@@ -182,7 +182,7 @@ export default function CategorySection() {
                   ))}
                 </div>
 
-                {/* CTA - 수익화 최적화: 리뷰 보기 → BEST 제품 보기 */}
+                {/* CTA - 수익화 최적화: 리뷰 보기 → BEST 제품 보기 + 쿠팡 직링크 */}
                 <div className="flex items-center gap-6">
                   <Button
                     className={`bg-gradient-to-r ${category.gradient} text-white hover:opacity-90 rounded-xl h-12 px-6 font-semibold shadow-lg hover:shadow-xl transition-all`}
